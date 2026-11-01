@@ -1,0 +1,1267 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Nity Lilac Lab</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Conceito: hero dividido. Texto curto à esquerda, palco 3D (estúdio violeta com linhas de camada de impressão) à direita.
+   Calculadora numa faixa lilás clara com painel de resultado escuro. Violeta, lilás e branco em todo o site. */
+:root{
+  --display:'Unbounded','Arial Rounded MT Bold','Trebuchet MS',system-ui,sans-serif;
+  --body:'Hanken Grotesk','Segoe UI',system-ui,-apple-system,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+
+  --bg:#FCFAFF;
+  --bg2:#F2EAFE;
+  --surface:#FFFFFF;
+  --fg:#24103F;
+  --muted:#66597F;
+  --line:#E2D6F5;
+  --accent:#7433DB;
+  --accent-ink:#FFFFFF;
+  --lilac:#C9A8F2;
+  --lilac-soft:#E9DDFB;
+  --deep:#2B1553;
+  --deep-fg:#F6EFFF;
+  --deep-muted:#C0AEE0;
+  --focus:#7433DB;
+  --layer:rgba(116,51,219,.07);
+  --shadow:36,16,63;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#150A26;
+    --bg2:#1C0F33;
+    --surface:#23133F;
+    --fg:#F4EEFF;
+    --muted:#B7A8D5;
+    --line:#3B2964;
+    --accent:#B98CFF;
+    --accent-ink:#1A0A33;
+    --lilac:#C9A8F2;
+    --lilac-soft:#2E1A52;
+    --deep:#0E0620;
+    --deep-fg:#F6EFFF;
+    --deep-muted:#A794CC;
+    --focus:#C9A8F2;
+    --layer:rgba(201,168,242,.07);
+    --shadow:0,0,0;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#150A26;
+  --bg2:#1C0F33;
+  --surface:#23133F;
+  --fg:#F4EEFF;
+  --muted:#B7A8D5;
+  --line:#3B2964;
+  --accent:#B98CFF;
+  --accent-ink:#1A0A33;
+  --lilac:#C9A8F2;
+  --lilac-soft:#2E1A52;
+  --deep:#0E0620;
+  --deep-fg:#F6EFFF;
+  --deep-muted:#A794CC;
+  --focus:#C9A8F2;
+  --layer:rgba(201,168,242,.07);
+  --shadow:0,0,0;
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.01em;margin:0;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+fieldset{border:0;padding:0;margin:0;min-width:0}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+.wrap{max-width:1180px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font:500 .72rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+
+/* topo */
+.top{padding-block:18px}
+.top .bar{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font:600 1rem/1 var(--display);letter-spacing:-.01em}
+.brand b{font-weight:600;color:var(--accent)}
+.mark{width:30px;height:30px;flex:none}
+.mark .m1{fill:var(--accent)}
+.mark .m2{fill:var(--lilac)}
+.mark .m3{fill:var(--fg)}
+.top nav{display:flex;gap:6px}
+.top nav a{padding:8px 12px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem;color:var(--muted)}
+.top nav a:hover{color:var(--fg);background:var(--bg2)}
+
+/* botões */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:999px;border:1px solid transparent;font:600 .95rem/1 var(--body);cursor:pointer;text-decoration:none;transition:transform .15s ease,background .15s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;color:var(--fg);border-color:var(--line)}
+.btn.ghost:hover{background:var(--bg2)}
+.btn.small{padding:9px 16px;font-size:.85rem}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+/* hero */
+.hero{position:relative;padding-block:clamp(20px,4vw,48px) clamp(48px,7vw,88px)}
+.hero::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(to bottom,transparent 0 9px,var(--layer) 9px 10px);-webkit-mask-image:linear-gradient(to bottom,#000,transparent 80%);mask-image:linear-gradient(to bottom,#000,transparent 80%);pointer-events:none}
+.hero .wrap{position:relative}
+.hero-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,4.5vw,64px);align-items:center}
+.copy{display:flex;flex-direction:column;gap:22px;min-width:0}
+.copy h1{font-size:clamp(1.9rem,3.8vw,2.9rem);line-height:1.1}
+.copy p.lead{font-size:1.08rem;color:var(--muted);max-width:44ch}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.trust{font-size:.88rem;color:var(--muted)}
+
+.stage-card{min-width:0;border:1px solid var(--line);border-radius:24px;overflow:hidden;background:var(--surface);box-shadow:0 24px 60px -28px rgba(var(--shadow),.45)}
+.stage{position:relative;aspect-ratio:5/4;min-height:340px;max-width:100%;background:radial-gradient(120% 95% at 50% 36%,#52308C 0%,#2A1450 52%,#150A2B 100%);overflow:hidden}
+.stage::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(to bottom,transparent 0 5px,rgba(233,221,251,.06) 5px 6px);pointer-events:none}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab}
+.stage canvas.hot{cursor:pointer}
+.stage canvas.grab{cursor:grabbing}
+.hint{position:absolute;left:14px;top:14px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.12);color:#F2E9FF;font:500 .78rem/1 var(--body);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);pointer-events:none;transition:opacity .4s}
+.hint.gone{opacity:0}
+.veil{position:absolute;inset:12px;border:2px dashed #E9DDFB;border-radius:16px;background:rgba(43,21,83,.78);color:#F6EFFF;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;font:600 1rem/1.3 var(--body);pointer-events:none}
+.nogl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;color:#F2E9FF}
+
+.controls{display:grid;gap:18px;padding:18px clamp(16px,2.4vw,24px) 22px}
+.field-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px}
+.lbl{font:600 .82rem/1.2 var(--body);letter-spacing:.02em;color:var(--muted)}
+.cur{font-weight:600;font-size:.9rem}
+.swatches{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.sw{width:34px;height:34px;border-radius:50%;border:1px solid rgba(var(--shadow),.25);background:var(--c);cursor:pointer;padding:0;transition:transform .15s ease}
+.sw:hover{transform:scale(1.08)}
+.sw[aria-pressed="true"]{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--accent)}
+.sw.custom{position:relative;overflow:hidden;background:conic-gradient(from 0deg,#C9A8F2,#E8A6DA,#B9C4F5,#7E3FE0,#C9A8F2)}
+.sw.custom input{position:absolute;inset:-6px;width:calc(100% + 12px);height:calc(100% + 12px);opacity:0;cursor:pointer;border:0;padding:0}
+.sw.custom:focus-within{outline:2px solid var(--focus);outline-offset:2px}
+
+.seg{display:inline-flex;flex-wrap:wrap;gap:4px;padding:4px;border:1px solid var(--line);border-radius:13px;background:var(--bg2)}
+.seg label{position:relative;display:block}
+.seg input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.seg span{display:block;padding:8px 16px;border-radius:9px;font-weight:600;font-size:.9rem;color:var(--muted);transition:background .15s ease,color .15s ease}
+.seg input:checked+span{background:var(--surface);color:var(--fg);box-shadow:0 1px 0 var(--line),0 3px 10px rgba(var(--shadow),.12)}
+.seg input:focus-visible+span{outline:2px solid var(--focus);outline-offset:2px}
+
+.check{display:inline-flex;align-items:center;gap:10px;font-weight:500;font-size:.92rem;cursor:pointer}
+.check input{width:18px;height:18px;accent-color:var(--accent);margin:0}
+
+.upload{display:flex;flex-direction:column;gap:10px;padding:14px;border:1px dashed var(--line);border-radius:16px;background:var(--bg)}
+.upload .row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.fileinfo{font-size:.88rem;color:var(--muted);overflow-wrap:anywhere}
+.fileinfo b{color:var(--fg);font-weight:600}
+
+/* aviso de formato */
+.modal{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(21,10,38,.62)}
+.modal-card{width:100%;max-width:440px;display:flex;flex-direction:column;gap:14px;padding:clamp(20px,4vw,28px);border-radius:20px;background:var(--surface);color:var(--fg);border:1px solid var(--line);box-shadow:0 30px 80px -20px rgba(var(--shadow),.6)}
+.modal-card h2{font-size:1.15rem;line-height:1.25}
+.modal-card p{color:var(--muted);overflow-wrap:anywhere}
+.modal-card p b{color:var(--fg);font-weight:600}
+.modal-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px;margin-top:4px}
+
+/* pista do rolo */
+.runway{overflow:hidden;background:var(--bg)}
+.lane{position:relative;height:132px;overflow:hidden}
+.lane::after{content:"";position:absolute;left:0;right:0;bottom:0;height:16px;background:var(--lilac-soft);border-top:1px solid var(--line);background-image:repeating-linear-gradient(to bottom,transparent 0 4px,var(--layer) 4px 5px)}
+.lane .thread{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible}
+.lane .spool{position:absolute;left:0;top:0;will-change:transform}
+
+/* faixas */
+.band{padding-block:clamp(52px,8vw,96px)}
+.band.tint{background:var(--bg2);border-block:1px solid var(--line)}
+.sec-head{display:flex;flex-direction:column;gap:12px;margin-bottom:clamp(24px,4vw,40px);max-width:640px}
+.sec-head h2{font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.15}
+.sec-head p{color:var(--muted)}
+
+/* calculadora */
+.calc{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(18px,3vw,32px);align-items:start}
+.calc-in{min-width:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px 20px;padding:clamp(18px,3vw,30px);border:1px solid var(--line);border-radius:22px;background:var(--surface)}
+.calc-in .full{grid-column:1/-1}
+.in{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:11px;background:var(--bg);color:var(--fg);font:500 1rem/1.2 var(--body);font-variant-numeric:tabular-nums}
+.in:focus{outline:2px solid var(--focus);outline-offset:1px}
+.fl{display:block;font:600 .82rem/1.2 var(--body);letter-spacing:.02em;color:var(--muted);margin-bottom:8px}
+.estimate{display:grid;gap:10px;padding:16px;border-radius:16px;background:var(--lilac-soft)}
+.estimate .est-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-weight:600}
+.estimate strong{font:500 1.35rem/1 var(--mono);font-variant-numeric:tabular-nums}
+.estimate input[type=range]{width:100%;accent-color:var(--accent);margin:0}
+.estimate .row{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.note{font-size:.84rem;color:var(--muted)}
+
+.calc-out{min-width:0;display:flex;flex-direction:column;gap:18px;padding:clamp(20px,3vw,30px);border-radius:22px;background:var(--deep);color:var(--deep-fg);border:1px solid var(--line)}
+.calc-out .k{font:500 .72rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--deep-muted)}
+.calc-out .big{font:600 clamp(2.4rem,6vw,3.4rem)/1 var(--display);font-variant-numeric:tabular-nums;margin-top:10px;overflow-wrap:anywhere}
+.calc-out .big small{font:500 1.1rem/1 var(--mono);margin-left:8px;color:var(--lilac)}
+.calc-out .sub{margin-top:8px;color:var(--deep-muted)}
+.calc-out .sub b{color:var(--deep-fg);font-family:var(--mono);font-weight:500}
+.calc-out hr{border:0;border-top:1px solid rgba(233,221,251,.16);margin:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mid{font:500 1.5rem/1.1 var(--mono);margin-top:10px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.roll{height:12px;border-radius:999px;background:rgba(233,221,251,.14);overflow:hidden;position:relative}
+.roll-fill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#9B6CF0,#D9C2FA);transition:width .35s ease}
+.roll::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 calc(25% - 1px),rgba(14,6,32,.55) calc(25% - 1px) 25%)}
+.rollnote{font-size:.88rem;color:var(--deep-muted)}
+.price{padding:18px;border-radius:16px;background:rgba(201,168,242,.14);border:1px solid rgba(201,168,242,.35)}
+.price .big{font-size:clamp(2rem,5vw,2.8rem)}
+.calc-in .sep{padding-top:6px;border-top:1px solid var(--line)}
+.calc-in .sep .fl{margin:10px 0 0;color:var(--accent)}
+.calc-out .btn.primary{background:var(--lilac);color:#1E0D3A}
+.copymsg{font-size:.85rem;color:var(--deep-muted);min-height:1.2em}
+.calc-out textarea{width:100%;min-height:150px;padding:10px;border-radius:10px;border:1px solid rgba(233,221,251,.25);background:rgba(255,255,255,.06);color:var(--deep-fg);font:400 .85rem/1.4 var(--mono)}
+
+/* filamentos */
+.mats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.mats li{padding:22px 22px 4px 0;display:flex;flex-direction:column;gap:10px}
+.mats li+li{padding-left:22px;border-left:1px solid var(--line)}
+.mats .tag{font:500 .72rem/1 var(--mono);letter-spacing:.12em;color:var(--accent)}
+.mats h3{font-size:1.25rem}
+.mats p{color:var(--muted);font-size:.95rem}
+.spoolbar{height:6px;border-radius:999px;background:var(--c);max-width:64px}
+
+/* passos */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,3vw,32px);counter-reset:s}
+.steps li{display:flex;flex-direction:column;gap:8px;padding-top:16px;border-top:2px solid var(--accent)}
+.steps .n{font:500 .78rem/1 var(--mono);color:var(--accent);letter-spacing:.1em}
+.steps h3{font-size:1.05rem;line-height:1.25}
+.steps p{color:var(--muted);font-size:.95rem}
+
+footer{padding-block:32px 40px;border-top:1px solid var(--line)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;color:var(--muted);font-size:.88rem}
+
+@media (max-width:900px){
+  .hero-grid,.calc{grid-template-columns:minmax(0,1fr)}
+  .mats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mats li:nth-child(3){padding-left:0;border-left:0}
+  .mats li:nth-child(n+3){border-top:1px solid var(--line);margin-top:22px;padding-top:22px}
+  .steps{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:620px){
+  .top nav a:not(.keep){display:none}
+  .mats{grid-template-columns:minmax(0,1fr)}
+  .mats li,.mats li+li{padding-left:0;border-left:0;padding-top:20px}
+  .mats li:nth-child(n+2){border-top:1px solid var(--line);margin-top:20px}
+  .stage{aspect-ratio:auto;height:360px;min-height:0}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important}
+}
+</style>
+
+<header class="top" id="inicio">
+  <div class="wrap bar">
+    <a class="brand" href="#inicio" aria-label="Nity Lilac Lab, início">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect class="m1" x="5" y="21" width="22" height="5.5" rx="2.75"/>
+        <rect class="m2" x="9" y="14" width="14" height="5.5" rx="2.75"/>
+        <rect class="m3" x="12.5" y="7" width="7" height="5.5" rx="2.75"/>
+      </svg>
+      <span>Nity <b>Lilac</b> Lab</span>
+    </a>
+    <nav aria-label="Principal">
+      <a href="#visualizador">Visualizador</a>
+      <a class="keep" href="#calculadora">Calculadora</a>
+      <a href="#materiais">Filamentos</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="visualizador">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="copy">
+        <p class="eyebrow">Filamentos e impressão 3D</p>
+        <h1>Veja sua peça na cor certa antes de imprimir</h1>
+        <p class="lead">Gire, clique e envie seu arquivo 3D. Escolha a cor e o acabamento e já calcule quanto filamento vai gastar.</p>
+        <div class="cta">
+          <button type="button" class="btn primary" id="heroPick">Enviar meu arquivo</button>
+          <a class="btn ghost" href="#calculadora">Calcular filamento</a>
+        </div>
+        <p class="trust">Seu arquivo fica só no seu aparelho. Nada é enviado.</p>
+      </div>
+
+      <div class="stage-card" id="stageCard">
+        <div class="stage" id="stage">
+          <canvas id="gl" role="img" aria-label="Objeto 3D interativo. Arraste para girar e clique no objeto para ver a reação."></canvas>
+          <p class="hint" id="hint">Arraste para girar · Clique no objeto</p>
+          <div class="veil" id="veil" hidden>Solte o arquivo aqui para ver sua peça</div>
+          <p class="nogl" id="nogl" hidden>Não foi possível abrir o visualizador 3D neste aparelho. A calculadora abaixo continua funcionando.</p>
+        </div>
+        <div class="controls">
+          <div role="group" aria-labelledby="lblColor">
+            <div class="field-head"><span class="lbl" id="lblColor">Cor do filamento</span><output class="cur" id="colorName">Lilás Névoa</output></div>
+            <div class="swatches" id="swatches">
+              <label class="sw custom" title="Escolher outra cor"><input type="color" id="customColor" value="#C9A8F2" aria-label="Escolher outra cor"></label>
+            </div>
+          </div>
+          <div role="group" aria-labelledby="lblFinish">
+            <div class="field-head"><span class="lbl" id="lblFinish">Acabamento</span></div>
+            <div class="seg" id="finish">
+              <label><input type="radio" name="finish" value="fosco"><span>Fosco</span></label>
+              <label><input type="radio" name="finish" value="brilho" checked><span>Brilho</span></label>
+              <label><input type="radio" name="finish" value="seda"><span>Seda</span></label>
+            </div>
+          </div>
+          <label class="check"><input type="checkbox" id="layers" checked> Mostrar as camadas da impressão</label>
+          <div class="upload">
+            <div class="row">
+              <input type="file" id="file" accept=".glb,.stl" hidden>
+              <button type="button" class="btn ghost small" id="pick">Enviar arquivo 3D</button>
+              <button type="button" class="btn ghost small" id="reset" hidden>Voltar ao exemplo</button>
+            </div>
+            <p class="fileinfo" id="fileInfo" aria-live="polite">Vendo o vaso de exemplo. Envie seu arquivo ou solte aqui para ver como fica.</p>
+            <p class="note">Tem outro formato? <a href="https://www.zamzar.com/convert/glb-to-stl/" target="_blank" rel="noopener">Converta aqui</a> e envie de novo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="runway" aria-hidden="true">
+  <div class="lane" id="lane">
+    <svg class="thread" id="threadSvg" width="100%" height="100%"><path id="thread" fill="none" stroke="#C9A8F2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <svg class="spool" id="spool" viewBox="0 0 44 44" width="44" height="44">
+      <g id="spoolRot">
+        <circle cx="22" cy="22" r="20" fill="#9B6CF0" stroke="#4B2070" stroke-width="2.5"/>
+        <circle cx="22" cy="22" r="14" fill="none" stroke="#D9C2FA" stroke-width="2.5" stroke-dasharray="6 4"/>
+        <circle cx="22" cy="22" r="9" fill="#C9A8F2" stroke="#4B2070" stroke-width="2"/>
+        <circle cx="22" cy="22" r="3.6" fill="#FFFFFF" stroke="#4B2070" stroke-width="2"/>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<section class="band tint" id="calculadora">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Calculadora de filamento</p>
+      <h2>Quanto filamento você vai gastar?</h2>
+      <p>Preencha e o resultado aparece na hora.</p>
+    </div>
+    <div class="calc">
+      <form class="calc-in" id="calcForm" autocomplete="off">
+        <div role="group" aria-labelledby="lblMat">
+          <span class="fl" id="lblMat">Tipo de filamento</span>
+          <div class="seg" id="mat">
+            <label><input type="radio" name="mat" value="pla" checked><span>PLA</span></label>
+            <label><input type="radio" name="mat" value="petg"><span>PETG</span></label>
+            <label><input type="radio" name="mat" value="abs"><span>ABS</span></label>
+            <label><input type="radio" name="mat" value="tpu"><span>TPU</span></label>
+          </div>
+        </div>
+        <div role="group" aria-labelledby="lblDia">
+          <span class="fl" id="lblDia">Espessura do fio</span>
+          <div class="seg" id="dia">
+            <label><input type="radio" name="dia" value="1.75" checked><span>1,75 mm</span></label>
+            <label><input type="radio" name="dia" value="2.85"><span>2,85 mm</span></label>
+          </div>
+        </div>
+        <div>
+          <label class="fl" for="weight">Peso de cada peça (g)</label>
+          <input class="in" id="weight" type="number" inputmode="decimal" min="0" step="0.1" value="38">
+        </div>
+        <div>
+          <label class="fl" for="qty">Quantas peças</label>
+          <input class="in" id="qty" type="number" inputmode="numeric" min="1" step="1" value="3">
+        </div>
+        <div>
+          <label class="fl" for="price">Preço do rolo (R$)</label>
+          <input class="in" id="price" type="number" inputmode="decimal" min="0" step="0.01" value="120">
+        </div>
+        <div>
+          <label class="fl" for="roll">Peso do rolo</label>
+          <select class="in" id="roll">
+            <option value="250">250 g</option>
+            <option value="500">500 g</option>
+            <option value="1000" selected>1 kg</option>
+            <option value="2000">2 kg</option>
+          </select>
+        </div>
+        <div>
+          <label class="fl" for="margin">Sobra e erros de impressão (%)</label>
+          <input class="in" id="margin" type="number" inputmode="decimal" min="0" max="50" step="1" value="5">
+        </div>
+        <div class="full sep"><span class="fl">Para o preço sugerido</span></div>
+        <div>
+          <label class="fl" for="hours">Tempo de impressão de cada peça (horas)</label>
+          <input class="in" id="hours" type="number" inputmode="decimal" min="0" step="0.1" value="3">
+        </div>
+        <div>
+          <label class="fl" for="watts">Consumo da impressora (watts)</label>
+          <input class="in" id="watts" type="number" inputmode="decimal" min="0" step="10" value="150">
+        </div>
+        <div>
+          <label class="fl" for="kwh">Preço da energia por kWh (R$)</label>
+          <input class="in" id="kwh" type="number" inputmode="decimal" min="0" step="0.01" value="0.95">
+        </div>
+        <div>
+          <label class="fl" for="wear">Desgaste da impressora por hora (R$)</label>
+          <input class="in" id="wear" type="number" inputmode="decimal" min="0" step="0.1" value="1">
+        </div>
+        <div>
+          <label class="fl" for="extras">Embalagem e acabamento (R$)</label>
+          <input class="in" id="extras" type="number" inputmode="decimal" min="0" step="0.5" value="5">
+        </div>
+        <div>
+          <label class="fl" for="profit">Margem de lucro (%)</label>
+          <input class="in" id="profit" type="number" inputmode="decimal" min="0" max="500" step="5" value="60">
+        </div>
+        <div>
+          <label class="fl" for="minp">Preço mínimo por peça (R$)</label>
+          <input class="in" id="minp" type="number" inputmode="decimal" min="0" step="1" value="10">
+        </div>
+        <div class="estimate full" id="estimate">
+          <div class="est-head"><span>Peso estimado pelo arquivo enviado</span><strong id="estG">—</strong></div>
+          <div>
+            <label class="fl" for="infill">Quão cheia fica a peça por dentro: <output id="infillOut">20%</output></label>
+            <input type="range" id="infill" min="5" max="100" step="5" value="20">
+          </div>
+          <div class="row">
+            <button type="button" class="btn primary small" id="useEst" disabled>Usar esse peso</button>
+            <p class="note" id="estNote">Envie um arquivo 3D no visualizador para estimar o peso.</p>
+          </div>
+        </div>
+      </form>
+
+      <div class="calc-out">
+        <div>
+          <p class="k">Filamento total</p>
+          <p class="big"><span id="oG">—</span><small>g</small></p>
+          <p class="sub">cerca de <b id="oM">—</b> metros de fio</p>
+        </div>
+        <hr>
+        <div class="two">
+          <div><p class="k">Custo do filamento</p><p class="mid" id="oC">—</p></div>
+          <div><p class="k">Rolos</p><p class="mid" id="oR">—</p></div>
+        </div>
+        <div>
+          <div class="roll" aria-hidden="true"><div class="roll-fill" id="rollFill"></div></div>
+          <p class="rollnote" id="rollNote" style="margin-top:8px"></p>
+        </div>
+        <div class="price">
+          <p class="k">Preço sugerido do pedido</p>
+          <p class="big"><span id="oP">—</span></p>
+          <p class="sub"><b id="oPU">—</b> por peça · lucro de <b id="oLU">—</b></p>
+          <p class="rollnote" id="oBreak" style="margin-top:8px"></p>
+          <p class="rollnote" style="margin-top:4px">É uma sugestão. O preço final é você quem decide.</p>
+        </div>
+        <button type="button" class="btn primary" id="copy">Copiar resumo do pedido</button>
+        <p class="copymsg" id="copyMsg" role="status"></p>
+        <textarea id="summary" readonly hidden aria-label="Resumo do pedido"></textarea>
+        <p class="rollnote">Valores de exemplo. Troque pelo preço do seu rolo. O resultado é uma estimativa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="materiais">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Filamentos</p>
+      <h2>O material certo para cada peça</h2>
+    </div>
+    <ul class="mats">
+      <li style="--c:#C9A8F2"><span class="spoolbar"></span><span class="tag">PLA</span><h3>Fácil e bonito</h3><p>Ótimo para decoração, presentes e protótipos.</p></li>
+      <li style="--c:#7E3FE0"><span class="spoolbar"></span><span class="tag">PETG</span><h3>Forte e brilhante</h3><p>Bom para o uso do dia a dia.</p></li>
+      <li style="--c:#4B2070"><span class="spoolbar"></span><span class="tag">ABS</span><h3>Aguenta calor</h3><p>Para peças que trabalham e levam pancada.</p></li>
+      <li style="--c:#E8A6DA"><span class="spoolbar"></span><span class="tag">TPU</span><h3>Flexível</h3><p>Macio como borracha. Para capas, vedações e pés.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="band tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Impressão 3D</p>
+      <h2>Do arquivo à peça pronta</h2>
+    </div>
+    <ol class="steps">
+      <li><span class="n">1</span><h3>Envie seu arquivo 3D</h3><p>Veja a peça na tela, na cor que você escolher.</p></li>
+      <li><span class="n">2</span><h3>Confira o filamento</h3><p>A calculadora mostra gramas, metros e custo.</p></li>
+      <li><span class="n">3</span><h3>Peça seu orçamento</h3><p>Copie o resumo e mande para a gente.</p></li>
+    </ol>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Nity Lilac Lab · Filamentos e impressão 3D</span>
+    <span>Valores e pesos da calculadora são estimativas.</span>
+  </div>
+</footer>
+
+<div class="modal" id="fmtModal" hidden>
+  <div class="modal-card" role="alertdialog" aria-modal="true" aria-labelledby="fmtTitle" aria-describedby="fmtText">
+    <h2 id="fmtTitle">Formato de arquivo não compatível</h2>
+    <p id="fmtText"></p>
+    <div class="modal-actions">
+      <a class="btn ghost small" href="https://www.zamzar.com/convert/glb-to-stl/" target="_blank" rel="noopener">Converter meu arquivo</a>
+      <button type="button" class="btn primary small" id="fmtOk">Entendi</button>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script>
+(function(){
+'use strict';
+
+/*PURE_START*/
+/* ---------- leitura de arquivo STL (binário e texto) ---------- */
+function parseSTL(buf){
+  var len=buf.byteLength;
+  if(len<15) throw new Error('vazio');
+  var dv=new DataView(buf);
+  var binary=false;
+  if(len>=84){ var n0=dv.getUint32(80,true); if(84+n0*50===len) binary=true; }
+  if(!binary){
+    var head=String.fromCharCode.apply(null,new Uint8Array(buf,0,5)).toLowerCase();
+    if(head!=='solid'){ binary=len>=84; }
+    else{
+      var probe=new TextDecoder().decode(new Uint8Array(buf,0,Math.min(len,1024))).toLowerCase();
+      if(probe.indexOf('facet')<0 && len>=84) binary=true;
+    }
+  }
+  var i,k;
+  if(binary){
+    var n=dv.getUint32(80,true), maxN=Math.floor((len-84)/50);
+    if(n>maxN) n=maxN;
+    var pos=new Float32Array(n*9);
+    for(i=0;i<n;i++){
+      var o=84+i*50+12;
+      for(k=0;k<9;k++) pos[i*9+k]=dv.getFloat32(o+k*4,true);
+    }
+    return pos;
+  }
+  var txt=new TextDecoder().decode(buf);
+  var re=/vertex\s+([-+0-9.eE]+)\s+([-+0-9.eE]+)\s+([-+0-9.eE]+)/g, m, arr=[];
+  while((m=re.exec(txt))!==null){ arr.push(parseFloat(m[1]),parseFloat(m[2]),parseFloat(m[3])); }
+  var cnt=Math.floor(arr.length/9)*9;
+  return Float32Array.from(arr.slice(0,cnt));
+}
+
+/* gira de Z para cima para Y para cima, mede, calcula volume e ajusta para caber (maior lado = 2,5) */
+function prepareMesh(pos,yUp){
+  var n=pos.length/9;
+  if(n<1) throw new Error('sem triângulos');
+  var i, x, y, z;
+  var minx=1e30,miny=1e30,minz=1e30,maxx=-1e30,maxy=-1e30,maxz=-1e30;
+  for(i=0;i<pos.length;i+=3){
+    x=pos[i]; y=pos[i+1]; z=pos[i+2];
+    if(!isFinite(x+y+z)) throw new Error('valores inválidos');
+    if(!yUp){ pos[i+1]=z; pos[i+2]=-y; }
+    y=pos[i+1]; z=pos[i+2];
+    if(x<minx)minx=x; if(x>maxx)maxx=x;
+    if(y<miny)miny=y; if(y>maxy)maxy=y;
+    if(z<minz)minz=z; if(z>maxz)maxz=z;
+  }
+  var vol=0;
+  for(i=0;i<pos.length;i+=9){
+    var ax=pos[i],ay=pos[i+1],az=pos[i+2],bx=pos[i+3],by=pos[i+4],bz=pos[i+5],cx=pos[i+6],cy=pos[i+7],cz=pos[i+8];
+    vol+=ax*(by*cz-bz*cy)-ay*(bx*cz-bz*cx)+az*(bx*cy-by*cx);
+  }
+  vol=Math.abs(vol)/6;
+  var dx=maxx-minx, dy=maxy-miny, dz=maxz-minz;
+  var maxDim=Math.max(dx,dy,dz);
+  if(!(maxDim>0)) throw new Error('tamanho zero');
+  var s=2.5/maxDim, mx=(minx+maxx)/2, my=(miny+maxy)/2, mz=(minz+maxz)/2;
+  for(i=0;i<pos.length;i+=3){
+    pos[i]=(pos[i]-mx)*s; pos[i+1]=(pos[i+1]-my)*s; pos[i+2]=(pos[i+2]-mz)*s;
+  }
+  return {pos:pos,dims:[dx,dy,dz],volumeMm3:vol,tris:n};
+}
+
+/* normais suaves, mas mantendo as quinas vivas (ângulo limite ~50°) */
+function smoothNormals(pos){
+  var n=pos.length/9, f, k, i, g;
+  var fu=new Float32Array(n*3), fa=new Float32Array(n*3);
+  for(f=0;f<n;f++){
+    i=f*9;
+    var e1x=pos[i+3]-pos[i], e1y=pos[i+4]-pos[i+1], e1z=pos[i+5]-pos[i+2];
+    var e2x=pos[i+6]-pos[i], e2y=pos[i+7]-pos[i+1], e2z=pos[i+8]-pos[i+2];
+    var nx=e1y*e2z-e1z*e2y, ny=e1z*e2x-e1x*e2z, nz=e1x*e2y-e1y*e2x;
+    fa[f*3]=nx; fa[f*3+1]=ny; fa[f*3+2]=nz;
+    var l=Math.sqrt(nx*nx+ny*ny+nz*nz);
+    if(l>0){ fu[f*3]=nx/l; fu[f*3+1]=ny/l; fu[f*3+2]=nz/l; }
+  }
+  var map=new Map();
+  for(f=0;f<n;f++){
+    for(k=0;k<3;k++){
+      i=f*9+k*3;
+      var key=Math.round(pos[i]*4000)+'_'+Math.round(pos[i+1]*4000)+'_'+Math.round(pos[i+2]*4000);
+      var list=map.get(key);
+      if(!list){ list=[]; map.set(key,list); }
+      list.push(f);
+    }
+  }
+  var out=new Float32Array(pos.length), cosT=Math.cos(50*Math.PI/180);
+  for(f=0;f<n;f++){
+    for(k=0;k<3;k++){
+      i=f*9+k*3;
+      var key2=Math.round(pos[i]*4000)+'_'+Math.round(pos[i+1]*4000)+'_'+Math.round(pos[i+2]*4000);
+      var lst=map.get(key2), sx=0, sy=0, sz=0;
+      for(var q=0;q<lst.length;q++){
+        g=lst[q];
+        var d=fu[f*3]*fu[g*3]+fu[f*3+1]*fu[g*3+1]+fu[f*3+2]*fu[g*3+2];
+        if(g===f || d>cosT){ sx+=fa[g*3]; sy+=fa[g*3+1]; sz+=fa[g*3+2]; }
+      }
+      var ll=Math.sqrt(sx*sx+sy*sy+sz*sz);
+      if(ll>0){ out[i]=sx/ll; out[i+1]=sy/ll; out[i+2]=sz/ll; } else { out[i]=0; out[i+1]=1; out[i+2]=0; }
+    }
+  }
+  return out;
+}
+
+/* ---------- contas da calculadora ---------- */
+var DENSIDADE={pla:1.24,petg:1.27,abs:1.04,tpu:1.21}; /* g/cm³ */
+function calcFilament(o){
+  var grams=o.weight*o.qty*(1+o.margin/100);
+  var r=o.diameter/20;                 /* raio em cm */
+  var area=Math.PI*r*r;                /* cm² */
+  var meters=(grams/o.density)/area/100;
+  var ratio=grams/o.rollG;
+  return {grams:grams,meters:meters,cost:ratio*o.price,ratio:ratio,rolls:Math.max(1,Math.ceil(ratio-1e-9))};
+}
+function estimateWeight(volCm3,density,infill){ return volCm3*density*(0.3+0.7*infill); }
+/* preço sugerido: (filamento + horas de máquina + extras) com a margem de lucro por cima */
+function suggestPrice(o){
+  var h=o.hours*o.qty;
+  var energy=h*(o.watts/1000)*o.kwh;       /* kWh gastos x preço do kWh */
+  var wear=h*o.wear;                        /* desgaste e manutenção da impressora */
+  var cost=o.filamentCost+energy+wear+o.extras;
+  var per=cost*(1+o.margin/100)/o.qty;
+  var minApplied=per<o.minPiece;
+  if(minApplied) per=o.minPiece;
+  var total=per*o.qty;
+  return {energy:energy,wear:wear,cost:cost,total:total,perPiece:per,profit:total-cost,minApplied:minApplied};
+}
+/*PURE_END*/
+
+function $(id){ return document.getElementById(id); }
+var reduce=!!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+function nf(v,d){ return new Intl.NumberFormat('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d}).format(v); }
+
+var state={volumeCm3:null,fileName:null,colorName:'Lilás Névoa'};
+var onModelChange=function(){};
+
+/* =====================================================================
+   1. TROCAR O OBJETO
+   O objeto de exemplo é gerado por createDefaultModel().
+   Para usar um arquivo STL seu como objeto padrão, cole o arquivo em
+   base64 na constante abaixo (e o nome em DEFAULT_MODEL_NAME).
+   Se ficar vazia, o vaso de exemplo aparece.
+   ===================================================================== */
+var DEFAULT_STL_BASE64='';
+var DEFAULT_MODEL_NAME='peça da Nity';
+
+function createDefaultModel(){
+  var rows=120, cols=112, H=2.4, wall=0.07, floorY=0.09, K=10, TW=3.2*Math.PI;
+  function R(t){ return 0.30+0.14*t+0.62*Math.sin(Math.PI*Math.pow(t,0.9))*(1-0.35*t)+0.2*Math.pow(t,10); }
+  var prof=[], i, t;
+  prof.push({r:0,y:0,m:0,t:0});
+  prof.push({r:R(0),y:0,m:1,t:0});
+  prof.push({r:R(0),y:0,m:1,t:0});
+  for(i=1;i<=rows;i++){ t=i/rows; prof.push({r:R(t),y:t*H,m:1,t:t}); }
+  prof.push({r:R(1),y:H,m:1,t:1});
+  prof.push({r:R(1)-wall,y:H,m:1,t:1});
+  prof.push({r:R(1)-wall,y:H,m:1,t:1});
+  var tf=floorY/H, steps=Math.round(rows*0.9);
+  for(i=1;i<=steps;i++){ t=1-(1-tf)*(i/steps); prof.push({r:Math.max(0.05,R(t)-wall),y:t*H,m:1,t:t}); }
+  prof.push({r:Math.max(0.05,R(tf)-wall),y:floorY,m:1,t:tf});
+  prof.push({r:0,y:floorY,m:0,t:tf});
+  var P=prof.length, M=cols;
+  var pos=new Float32Array(P*M*3), idx=[], p, m;
+  for(p=0;p<P;p++){
+    var pt=prof[p], amp=0.055*Math.sin(Math.PI*pt.t);
+    for(m=0;m<M;m++){
+      var th=2*Math.PI*m/M;
+      var rr=pt.r*(1+pt.m*amp*Math.cos(K*th+TW*pt.t));
+      var o=(p*M+m)*3;
+      pos[o]=rr*Math.cos(th); pos[o+1]=pt.y-H/2; pos[o+2]=rr*Math.sin(th);
+    }
+  }
+  for(p=0;p<P-1;p++){
+    for(m=0;m<M;m++){
+      var a=p*M+m, b=(p+1)*M+m, c=p*M+(m+1)%M, d=(p+1)*M+(m+1)%M;
+      idx.push(a,b,c, b,d,c);
+    }
+  }
+  var g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  g.setIndex(idx);
+  g.computeVertexNormals();
+  return g;
+}
+
+/* =====================================================================
+   2. VISUALIZADOR 3D
+   ===================================================================== */
+var viewer=null;
+function initViewer(){
+  var stage=$('stage'), canvas=$('gl');
+  if(!window.THREE){ $('nogl').hidden=false; return null; }
+  var renderer;
+  try{
+    renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true,powerPreference:'high-performance'});
+  }catch(e){ $('nogl').hidden=false; return null; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  renderer.outputEncoding=THREE.sRGBEncoding;
+
+  var scene=new THREE.Scene();
+  var camera=new THREE.PerspectiveCamera(32,1,0.1,60);
+
+  function srgb(hex){ return new THREE.Color(hex).convertSRGBToLinear(); }
+
+  /* reflexos de estúdio */
+  try{
+    var pm=new THREE.PMREMGenerator(renderer), env=new THREE.Scene();
+    env.add(new THREE.Mesh(new THREE.BoxGeometry(14,14,14),new THREE.MeshBasicMaterial({color:0x3a2466,side:THREE.BackSide})));
+    var panel=function(w,h,x,y,z,col,k){
+      var mm=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:new THREE.Color(col).multiplyScalar(k),side:THREE.DoubleSide}));
+      mm.position.set(x,y,z); mm.lookAt(0,0,0); env.add(mm);
+    };
+    panel(6,3,0,6,2,0xffffff,5); panel(3,7,-6,1,2,0xe6d4ff,3.5); panel(3,7,6,0,-1,0xffffff,2.5); panel(7,2,0,-5,3,0xb98cff,1.2);
+    scene.environment=pm.fromScene(env,0.04).texture; pm.dispose();
+  }catch(e){}
+  var key=new THREE.DirectionalLight(0xffffff,0.9); key.position.set(3,6,5); scene.add(key);
+  var rim=new THREE.PointLight(0xc9a8f2,0.9,30); rim.position.set(-5,2,-3); scene.add(rim);
+  scene.add(new THREE.AmbientLight(0xffffff,0.18));
+
+  /* material com linhas de camada */
+  var layerAmp={value:0.07}, layerFreq={value:26};
+  var mat=new THREE.MeshPhysicalMaterial({color:srgb('#C9A8F2'),roughness:0.18,metalness:0,clearcoat:1,clearcoatRoughness:0.08,envMapIntensity:0.9});
+  mat.onBeforeCompile=function(sh){
+    sh.uniforms.uLayerAmp=layerAmp; sh.uniforms.uLayerFreq=layerFreq;
+    sh.vertexShader=sh.vertexShader
+      .replace('#include <common>','#include <common>\nvarying float vLy;')
+      .replace('#include <begin_vertex>','#include <begin_vertex>\nvLy=position.y;');
+    sh.fragmentShader=sh.fragmentShader
+      .replace('#include <common>','#include <common>\nvarying float vLy;\nuniform float uLayerAmp;\nuniform float uLayerFreq;')
+      .replace('#include <color_fragment>','#include <color_fragment>\nfloat lb=abs(fract(vLy*uLayerFreq)-0.5)*2.0;\ndiffuseColor.rgb*=1.0-uLayerAmp*(1.0-lb);');
+  };
+  mat.customProgramCacheKey=function(){ return 'nity-layers'; };
+
+  var FINISH={
+    fosco:{roughness:0.8,metalness:0,clearcoat:0,clearcoatRoughness:0.6},
+    brilho:{roughness:0.18,metalness:0,clearcoat:1,clearcoatRoughness:0.08},
+    seda:{roughness:0.3,metalness:0.65,clearcoat:0.4,clearcoatRoughness:0.2}
+  };
+
+  /* hierarquia: inclinação (centro) > giro > amassado (base no chão) > objeto */
+  var tilt=new THREE.Group(), spinG=new THREE.Group(), squash=new THREE.Group();
+  var mesh=new THREE.Mesh(new THREE.BufferGeometry(),mat);
+  squash.add(mesh); spinG.add(squash); tilt.add(spinG); scene.add(tilt);
+
+  /* sombra no chão */
+  var sc=document.createElement('canvas'); sc.width=sc.height=128;
+  var sx=sc.getContext('2d'), gr=sx.createRadialGradient(64,64,0,64,64,64);
+  gr.addColorStop(0,'rgba(10,2,24,0.6)'); gr.addColorStop(1,'rgba(10,2,24,0)');
+  sx.fillStyle=gr; sx.fillRect(0,0,128,128);
+  var shadow=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(sc),transparent:true,depthWrite:false}));
+  shadow.rotation.x=-Math.PI/2; scene.add(shadow);
+  var shadowBase=3;
+
+  /* faíscas do clique */
+  var NP=56, pPos=new Float32Array(NP*3), pCol=new Float32Array(NP*3), pVel=new Float32Array(NP*3), pBase=new Float32Array(NP*3), pLife=new Float32Array(NP), pNext=0;
+  var dc=document.createElement('canvas'); dc.width=dc.height=64;
+  var dx=dc.getContext('2d'), dg=dx.createRadialGradient(32,32,0,32,32,32);
+  dg.addColorStop(0,'rgba(255,255,255,1)'); dg.addColorStop(0.4,'rgba(255,255,255,0.5)'); dg.addColorStop(1,'rgba(255,255,255,0)');
+  dx.fillStyle=dg; dx.fillRect(0,0,64,64);
+  var pGeo=new THREE.BufferGeometry();
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
+  var points=new THREE.Points(pGeo,new THREE.PointsMaterial({size:0.12,map:new THREE.CanvasTexture(dc),vertexColors:true,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,sizeAttenuation:true}));
+  points.frustumCulled=false; scene.add(points);
+
+  /* estado de animação */
+  var curColor=srgb('#C9A8F2'), tgtColor=srgb('#C9A8F2');
+  var rotY=0.6, rotX=0.1, spin=0, idleT=2, sq=1, sqv=0, flash=0, dragging=null, lastTris=0;
+
+  function emit(point,normal){
+    var spark=curColor.clone().lerp(new THREE.Color(1,1,1),0.5), n;
+    for(n=0;n<26;n++){
+      var i=pNext; pNext=(pNext+1)%NP;
+      var spd=0.8+Math.random()*1.8;
+      pPos[i*3]=point.x; pPos[i*3+1]=point.y; pPos[i*3+2]=point.z;
+      pVel[i*3]=(normal.x*1.2+(Math.random()-0.5)*1.6)*spd;
+      pVel[i*3+1]=(normal.y*1.2+(Math.random()-0.3)*1.6)*spd;
+      pVel[i*3+2]=(normal.z*1.2+(Math.random()-0.5)*1.6)*spd;
+      pBase[i*3]=spark.r; pBase[i*3+1]=spark.g; pBase[i*3+2]=spark.b;
+      pLife[i]=0.6+Math.random()*0.5;
+    }
+  }
+
+  function fit(){
+    var w=stage.clientWidth||600, h=stage.clientHeight||480;
+    renderer.setSize(w,h,false);
+    camera.aspect=w/h;
+    var t=Math.tan(THREE.MathUtils.degToRad(camera.fov/2)), need=3.6;
+    var d=Math.max(need/2/t, need/camera.aspect/2/t);
+    camera.position.set(0,d*0.17,d); camera.lookAt(0,-0.1,0); camera.updateProjectionMatrix();
+  }
+  if(window.ResizeObserver){ new ResizeObserver(fit).observe(stage); } else { window.addEventListener('resize',fit); }
+  fit();
+
+  function setModel(geometry,info){
+    if(mesh.geometry) mesh.geometry.dispose();
+    mesh.geometry=geometry;
+    geometry.computeBoundingBox();
+    var bb=geometry.boundingBox, h=bb.max.y-bb.min.y;
+    squash.position.y=-h/2; mesh.position.y=h/2;
+    shadow.position.y=-h/2-0.01;
+    shadowBase=Math.max(bb.max.x-bb.min.x,bb.max.z-bb.min.z)*1.8;
+    mat.side=info.isSTL?THREE.DoubleSide:THREE.FrontSide;
+    mat.needsUpdate=true;
+    lastTris=geometry.index?geometry.index.count/3:geometry.attributes.position.count/3;
+    sqv=reduce?0:2; flash=1;
+  }
+
+  function setColor(hex){ tgtColor=srgb(hex); flash=0.6; }
+  function setFinish(name){
+    var f=FINISH[name]||FINISH.brilho;
+    mat.roughness=f.roughness; mat.metalness=f.metalness; mat.clearcoat=f.clearcoat; mat.clearcoatRoughness=f.clearcoatRoughness;
+  }
+  function setLayers(on){ layerAmp.value=on?0.07:0; }
+
+  /* clique e arraste */
+  var ray=new THREE.Raycaster(), ndc=new THREE.Vector2(), hoverT=0;
+  function pick(e){
+    var r=canvas.getBoundingClientRect();
+    ndc.set(((e.clientX-r.left)/r.width)*2-1, -((e.clientY-r.top)/r.height)*2+1);
+    ray.setFromCamera(ndc,camera);
+    var hits=ray.intersectObject(mesh,false);
+    return hits.length?hits[0]:null;
+  }
+  canvas.addEventListener('pointerdown',function(e){
+    try{ canvas.setPointerCapture(e.pointerId); }catch(err){}
+    dragging={sx:e.clientX,sy:e.clientY,x:e.clientX,y:e.clientY,t:performance.now(),moved:0,vel:0};
+    spin=0; canvas.classList.add('grab');
+  });
+  canvas.addEventListener('pointermove',function(e){
+    if(dragging){
+      var dxp=e.clientX-dragging.x, dyp=e.clientY-dragging.y;
+      dragging.x=e.clientX; dragging.y=e.clientY;
+      dragging.moved=Math.max(dragging.moved,Math.hypot(e.clientX-dragging.sx,e.clientY-dragging.sy));
+      rotY+=dxp*0.009; rotX=Math.max(-0.5,Math.min(0.6,rotX+dyp*0.005));
+      dragging.vel=dragging.vel*0.6+dxp*0.009*60*0.4;
+      idleT=0;
+    }else if(lastTris<120000){
+      var now=performance.now();
+      if(now-hoverT>70){ hoverT=now; canvas.classList.toggle('hot',!!pick(e)); }
+    }
+  });
+  function endDrag(e,cancelled){
+    if(!dragging) return;
+    var d=dragging; dragging=null; canvas.classList.remove('grab');
+    if(!cancelled && d.moved<6 && performance.now()-d.t<600){
+      var hit=pick(e);
+      if(hit) poke(hit);
+    }else{
+      spin=Math.max(-8,Math.min(8,d.vel));
+    }
+    idleT=0;
+  }
+  canvas.addEventListener('pointerup',function(e){ endDrag(e,false); });
+  canvas.addEventListener('pointercancel',function(e){ endDrag(e,true); });
+  canvas.addEventListener('pointerleave',function(){ canvas.classList.remove('hot'); });
+
+  function poke(hit){
+    var n=hit.face?hit.face.normal.clone().transformDirection(mesh.matrixWorld):new THREE.Vector3(0,1,0);
+    flash=1;
+    emit(hit.point,n);
+    if(!reduce){ sqv+=2.6; spin+=(hit.point.x>=0?-1:1)*4.5; }
+    $('hint').classList.add('gone');
+  }
+
+  /* laço de animação */
+  var last=performance.now(), visible=true;
+  if(window.IntersectionObserver){ new IntersectionObserver(function(es){ visible=es[0].isIntersecting; }).observe(stage); }
+  function frame(now){
+    requestAnimationFrame(frame);
+    var dt=Math.min(0.05,(now-last)/1000); last=now;
+    if(!visible||document.hidden) return;
+    if(!dragging){
+      idleT+=dt;
+      rotY+=spin*dt; spin*=Math.exp(-2.2*dt);
+      if(!reduce && idleT>1.2) rotY+=0.3*dt;
+      rotX+=(0.1-rotX)*(1-Math.exp(-1.5*dt));
+    }
+    sqv+=(-140*(sq-1)-11*sqv)*dt; sq+=sqv*dt;
+    var k=Math.max(0.6,Math.min(1.5,sq)), kxz=1/Math.sqrt(k);
+    squash.scale.set(kxz,k,kxz);
+    shadow.scale.setScalar(shadowBase*kxz);
+    spinG.rotation.y=rotY; tilt.rotation.x=rotX;
+
+    curColor.lerp(tgtColor,1-Math.exp(-9*dt));
+    mat.color.copy(curColor);
+    flash*=Math.exp(-4*dt);
+    mat.emissive.copy(curColor); mat.emissiveIntensity=flash*0.3;
+
+    var alive=false, i;
+    for(i=0;i<NP;i++){
+      if(pLife[i]>0){
+        alive=true;
+        pLife[i]-=dt/0.95;
+        var kk=Math.max(0,pLife[i]), damp=Math.exp(-1.6*dt);
+        pVel[i*3+1]-=1.6*dt;
+        pVel[i*3]*=damp; pVel[i*3+1]*=damp; pVel[i*3+2]*=damp;
+        pPos[i*3]+=pVel[i*3]*dt; pPos[i*3+1]+=pVel[i*3+1]*dt; pPos[i*3+2]+=pVel[i*3+2]*dt;
+        pCol[i*3]=pBase[i*3]*kk; pCol[i*3+1]=pBase[i*3+1]*kk; pCol[i*3+2]=pBase[i*3+2]*kk;
+      }else if(pCol[i*3]!==0||pCol[i*3+1]!==0||pCol[i*3+2]!==0){
+        pCol[i*3]=0; pCol[i*3+1]=0; pCol[i*3+2]=0; alive=true;
+      }
+    }
+    if(alive){ pGeo.attributes.position.needsUpdate=true; pGeo.attributes.color.needsUpdate=true; }
+    renderer.render(scene,camera);
+  }
+  requestAnimationFrame(frame);
+
+  return {setModel:setModel,setColor:setColor,setFinish:setFinish,setLayers:setLayers};
+}
+
+/* =====================================================================
+   3. CARREGAR OBJETO (exemplo ou arquivo do cliente)
+   ===================================================================== */
+function geometryFromSTLBuffer(buf){
+  return finishGeometry(prepareMesh(parseSTL(buf),false));
+}
+
+/* GLB: junta todas as malhas da cena, já na posição final. O GLB usa metros, então convertemos para milímetros. */
+function geometryFromGLBBuffer(buf){
+  return new Promise(function(resolve,reject){
+    if(!THREE.GLTFLoader){ reject(new Error('sem leitor GLB')); return; }
+    new THREE.GLTFLoader().parse(buf,'',function(gltf){
+      try{
+        gltf.scene.updateMatrixWorld(true);
+        var chunks=[], total=0, v=new THREE.Vector3();
+        gltf.scene.traverse(function(o){
+          if(!o.isMesh || !o.geometry || !o.geometry.attributes.position) return;
+          var g=o.geometry, p=g.attributes.position, idx=g.index, m=o.matrixWorld;
+          var tc=idx?Math.floor(idx.count/3):Math.floor(p.count/3), arr=new Float32Array(tc*9), t, k, vi;
+          for(t=0;t<tc;t++){
+            for(k=0;k<3;k++){
+              vi=idx?idx.getX(t*3+k):t*3+k;
+              v.fromBufferAttribute(p,vi).applyMatrix4(m).multiplyScalar(1000);
+              arr[t*9+k*3]=v.x; arr[t*9+k*3+1]=v.y; arr[t*9+k*3+2]=v.z;
+            }
+          }
+          chunks.push(arr); total+=arr.length;
+        });
+        if(!total) throw new Error('sem malhas');
+        var all=new Float32Array(total), off=0;
+        chunks.forEach(function(c){ all.set(c,off); off+=c.length; });
+        resolve(finishGeometry(prepareMesh(all,true)));
+      }catch(err){ reject(err); }
+    },function(err){ reject(err||new Error('glb')); });
+  });
+}
+
+function isGLB(buf){
+  if(buf.byteLength<12) return false;
+  var u=new Uint8Array(buf,0,4);
+  return u[0]===0x67 && u[1]===0x6C && u[2]===0x54 && u[3]===0x46;
+}
+
+function finishGeometry(res){
+  var g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.BufferAttribute(res.pos,3));
+  if(res.tris<=200000){
+    g.setAttribute('normal',new THREE.BufferAttribute(smoothNormals(res.pos),3));
+  }else{
+    g.computeVertexNormals();
+  }
+  return {geometry:g,dims:res.dims,volumeCm3:res.volumeMm3/1000,tris:res.tris};
+}
+
+function loadDefault(){
+  if(!viewer) return;
+  state.volumeCm3=null; state.fileName=null;
+  var done=false;
+  if(DEFAULT_STL_BASE64){
+    try{
+      var bin=atob(DEFAULT_STL_BASE64), u=new Uint8Array(bin.length), i;
+      for(i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i);
+      var r=geometryFromSTLBuffer(u.buffer);
+      viewer.setModel(r.geometry,{isSTL:true});
+      state.volumeCm3=r.volumeCm3; state.fileName=DEFAULT_MODEL_NAME;
+      $('fileInfo').innerHTML='Vendo <b></b>. Envie seu arquivo para ver como ele fica.';
+      $('fileInfo').querySelector('b').textContent=DEFAULT_MODEL_NAME;
+      done=true;
+    }catch(e){ done=false; }
+  }
+  if(!done){
+    viewer.setModel(createDefaultModel(),{isSTL:false});
+    $('fileInfo').textContent='Vendo o vaso de exemplo. Envie seu arquivo ou solte aqui para ver como fica.';
+  }
+  $('reset').hidden=true;
+  onModelChange();
+}
+
+var fmtReturn=null;
+function showFormatDialog(name){
+  var modal=$('fmtModal'), ok=$('fmtOk'), text=$('fmtText');
+  text.innerHTML='O arquivo <b></b> está em um formato que não conseguimos abrir. Por favor, envie sua peça em formato <b>GLB</b> ou <b>STL</b>. Se o arquivo estiver em outro formato, use o botão abaixo para convertê-lo e envie novamente.';
+  text.querySelector('b').textContent='“'+name+'”';
+  fmtReturn=document.activeElement;
+  modal.hidden=false;
+  ok.focus();
+}
+function closeFormatDialog(){
+  $('fmtModal').hidden=true;
+  if(fmtReturn && fmtReturn.focus){ try{ fmtReturn.focus(); }catch(e){} }
+}
+function initFormatDialog(){
+  var modal=$('fmtModal');
+  $('fmtOk').addEventListener('click',closeFormatDialog);
+  modal.addEventListener('mousedown',function(e){ if(e.target===modal) closeFormatDialog(); });
+  document.addEventListener('keydown',function(e){
+    if(modal.hidden) return;
+    if(e.key==='Escape'){ e.preventDefault(); closeFormatDialog(); return; }
+    if(e.key==='Tab'){
+      var f=modal.querySelectorAll('a[href],button'), first=f[0], last=f[f.length-1];
+      if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+    }
+  });
+}
+
+function handleFile(file){
+  var info=$('fileInfo');
+  if(!file) return;
+  if(!viewer){ info.textContent='O visualizador 3D não está disponível neste aparelho.'; return; }
+  if(!/\.(stl|glb)$/i.test(file.name)){
+    showFormatDialog(file.name);
+    info.textContent='Nenhum arquivo foi carregado. Envie sua peça em formato GLB ou STL.';
+    return;
+  }
+  if(file.size>80*1024*1024){ info.textContent='O arquivo é muito grande (mais de 80 MB). Tente um arquivo menor.'; return; }
+  info.textContent='Lendo o arquivo…';
+  var rd=new FileReader();
+  rd.onerror=function(){ info.textContent='Não consegui abrir esse arquivo. Tente de novo.'; };
+  rd.onload=function(){
+    function done(r){
+      viewer.setModel(r.geometry,{isSTL:true});
+      state.volumeCm3=r.volumeCm3; state.fileName=file.name;
+      var d=r.dims;
+      info.innerHTML='<b></b> · '+nf(d[0],0)+' × '+nf(d[2],0)+' × '+nf(d[1],0)+' mm · '+nf(r.volumeCm3,r.volumeCm3<10?1:0)+' cm³';
+      info.querySelector('b').textContent=file.name;
+      $('reset').hidden=false;
+      onModelChange();
+    }
+    function fail(){ info.textContent='Não consegui ler esse arquivo. Confira se ele é um GLB ou STL válido e tente de novo.'; }
+    setTimeout(function(){
+      try{
+        if(isGLB(rd.result)) geometryFromGLBBuffer(rd.result).then(done,fail);
+        else done(geometryFromSTLBuffer(rd.result));
+      }catch(err){ fail(); }
+    },30);
+  };
+  rd.readAsArrayBuffer(file);
+}
+
+/* =====================================================================
+   4. CORES, ACABAMENTO E ENVIO
+   ===================================================================== */
+var CORES=[
+  ['Lilás Névoa','#C9A8F2'],['Violeta Real','#7E3FE0'],['Ameixa','#4B2070'],['Orquídea','#E8A6DA'],
+  ['Pérola','#F3EFFA'],['Lavanda Gelo','#B9C4F5'],['Grafite','#2D2A36']
+];
+function initControls(){
+  var box=$('swatches'), custom=box.querySelector('.custom'), btns=[];
+  function select(name,hex,btn){
+    state.colorName=name; $('colorName').textContent=name;
+    btns.forEach(function(b){ b.setAttribute('aria-pressed',b===btn?'true':'false'); });
+    if(viewer) viewer.setColor(hex);
+  }
+  CORES.forEach(function(c,i){
+    var b=document.createElement('button');
+    b.type='button'; b.className='sw'; b.style.setProperty('--c',c[1]);
+    b.setAttribute('aria-label',c[0]); b.title=c[0]; b.setAttribute('aria-pressed',i===0?'true':'false');
+    b.addEventListener('click',function(){ select(c[0],c[1],b); $('customColor').value=c[1]; });
+    box.insertBefore(b,custom); btns.push(b);
+  });
+  $('customColor').addEventListener('input',function(e){ select('Cor personalizada',e.target.value,null); });
+
+  function applyFinish(){
+    var v=document.querySelector('input[name="finish"]:checked').value;
+    if(viewer) viewer.setFinish(v);
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('input[name="finish"]'),function(r){ r.addEventListener('change',applyFinish); });
+  $('layers').addEventListener('change',function(e){ if(viewer) viewer.setLayers(e.target.checked); });
+  applyFinish();
+
+  $('pick').addEventListener('click',function(){ $('file').click(); });
+  $('heroPick').addEventListener('click',function(){ $('file').click(); });
+  $('file').addEventListener('change',function(e){ handleFile(e.target.files[0]); e.target.value=''; });
+  $('reset').addEventListener('click',loadDefault);
+
+  var card=$('stageCard'), veil=$('veil'), depth=0;
+  function hasFiles(e){ return e.dataTransfer && Array.prototype.indexOf.call(e.dataTransfer.types||[],'Files')>=0; }
+  card.addEventListener('dragenter',function(e){ if(!hasFiles(e)) return; e.preventDefault(); depth++; veil.hidden=false; });
+  card.addEventListener('dragover',function(e){ if(!hasFiles(e)) return; e.preventDefault(); });
+  card.addEventListener('dragleave',function(){ depth=Math.max(0,depth-1); if(!depth) veil.hidden=true; });
+  card.addEventListener('drop',function(e){
+    if(!hasFiles(e)) return;
+    e.preventDefault(); depth=0; veil.hidden=true;
+    handleFile(e.dataTransfer.files[0]);
+  });
+  window.addEventListener('dragover',function(e){ if(hasFiles(e)) e.preventDefault(); });
+  window.addEventListener('drop',function(e){ if(hasFiles(e)) e.preventDefault(); });
+}
+
+/* =====================================================================
+   5. CALCULADORA
+   ===================================================================== */
+function num(id,fallback){
+  var v=parseFloat(String($(id).value).replace(',','.'));
+  return isFinite(v)?v:fallback;
+}
+var lastCalc=null;
+function recalc(){
+  var mat=document.querySelector('input[name="mat"]:checked').value;
+  var dia=parseFloat(document.querySelector('input[name="dia"]:checked').value);
+  var o={
+    weight:Math.max(0,num('weight',0)),
+    qty:Math.max(1,Math.round(num('qty',1))),
+    margin:Math.max(0,num('margin',0)),
+    density:DENSIDADE[mat],
+    diameter:dia,
+    rollG:parseFloat($('roll').value),
+    price:Math.max(0,num('price',0))
+  };
+  if(!(o.weight>0)){
+    ['oG','oM','oC','oR','oP','oPU','oLU'].forEach(function(id){ $(id).textContent='—'; });
+    $('oBreak').textContent='';
+    $('rollFill').style.width='0%'; $('rollNote').textContent='Informe o peso da peça para ver o resultado.';
+    lastCalc=null; return;
+  }
+  var r=calcFilament(o);
+  var sp=suggestPrice({filamentCost:r.cost,hours:Math.max(0,num('hours',0)),qty:o.qty,watts:Math.max(0,num('watts',0)),kwh:Math.max(0,num('kwh',0)),wear:Math.max(0,num('wear',0)),extras:Math.max(0,num('extras',0)),margin:Math.max(0,num('profit',0)),minPiece:Math.max(0,num('minp',0))});
+  lastCalc={o:o,r:r,mat:mat,sp:sp};
+  $('oBreak').textContent='Energia R$ '+nf(sp.energy,2)+' · Desgaste R$ '+nf(sp.wear,2)+(sp.minApplied?' · Preço mínimo por peça aplicado':'');
+  $('oP').textContent='R$ '+nf(sp.total,2);
+  $('oPU').textContent='R$ '+nf(sp.perPiece,2);
+  $('oLU').textContent='R$ '+nf(sp.profit,2);
+  $('oG').textContent=nf(r.grams,r.grams<10?1:0);
+  $('oM').textContent=nf(r.meters,r.meters<10?1:0);
+  $('oC').textContent='R$ '+nf(r.cost,2);
+  $('oR').textContent=String(r.rolls);
+  $('rollFill').style.width=Math.min(100,r.ratio*100)+'%';
+  var rollTxt=o.rollG>=1000?nf(o.rollG/1000,o.rollG%1000?1:0)+' kg':o.rollG+' g';
+  if(r.ratio<=1) $('rollNote').textContent='Usa '+nf(r.ratio*100,0)+'% de 1 rolo de '+rollTxt+'.';
+  else $('rollNote').textContent='Usa '+nf(r.ratio,1)+' rolos de '+rollTxt+'. Você precisa de '+r.rolls+'.';
+  updateEstimate();
+}
+
+var lastEst=null;
+function updateEstimate(){
+  var infill=num('infill',20)/100;
+  $('infillOut').textContent=Math.round(infill*100)+'%';
+  if(state.volumeCm3==null){
+    lastEst=null; $('estG').textContent='—'; $('useEst').disabled=true;
+    $('estNote').textContent='Envie um arquivo 3D no visualizador para estimar o peso.';
+    return;
+  }
+  var mat=document.querySelector('input[name="mat"]:checked').value;
+  lastEst=estimateWeight(state.volumeCm3,DENSIDADE[mat],infill);
+  $('estG').textContent=nf(lastEst,0)+' g';
+  $('useEst').disabled=false;
+  $('estNote').textContent='Peça de '+nf(state.volumeCm3,state.volumeCm3<10?1:0)+' cm³, medida em milímetros. É uma estimativa.';
+}
+onModelChange=updateEstimate;
+
+function initCalc(){
+  ['weight','qty','price','margin','hours','watts','kwh','wear','extras','profit','minp'].forEach(function(id){ $(id).addEventListener('input',recalc); });
+  $('roll').addEventListener('change',recalc);
+  $('infill').addEventListener('input',updateEstimate);
+  Array.prototype.forEach.call(document.querySelectorAll('input[name="mat"],input[name="dia"]'),function(r){ r.addEventListener('change',recalc); });
+  $('calcForm').addEventListener('submit',function(e){ e.preventDefault(); });
+  $('useEst').addEventListener('click',function(){
+    if(lastEst==null) return;
+    $('weight').value=String(Math.max(1,Math.round(lastEst)));
+    recalc();
+  });
+
+  $('copy').addEventListener('click',function(){
+    var msg=$('copyMsg'), box=$('summary');
+    if(!lastCalc){ msg.textContent='Preencha o peso da peça primeiro.'; return; }
+    var c=lastCalc, fin=document.querySelector('input[name="finish"]:checked').parentNode.textContent.trim();
+    var lines=[
+      'Pedido · Nity Lilac Lab',
+      'Peça: '+(state.fileName||'a combinar'),
+      'Cor: '+state.colorName,
+      'Acabamento: '+fin,
+      'Filamento: '+c.mat.toUpperCase()+' '+nf(c.o.diameter,2)+' mm',
+      'Quantidade: '+c.o.qty+(c.o.qty>1?' peças':' peça'),
+      'Filamento total: '+nf(c.r.grams,0)+' g (cerca de '+nf(c.r.meters,0)+' m)',
+      'Custo do filamento: R$ '+nf(c.r.cost,2),
+      'Preço sugerido: R$ '+nf(c.sp.total,2)+' (R$ '+nf(c.sp.perPiece,2)+' por peça)'
+    ];
+    var text=lines.join('\n');
+    function fallback(){
+      box.value=text; box.hidden=false; box.focus(); box.select();
+      msg.textContent='Selecione e copie o texto abaixo.';
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ box.hidden=true; msg.textContent='Resumo copiado. Agora é só colar na conversa.'; },fallback);
+    }else{ fallback(); }
+  });
+  recalc();
+}
+
+/* =====================================================================
+   6. ROLO DE FILAMENTO ROLANDO
+   ===================================================================== */
+function initCat(){
+  var lane=$('lane'), spool=$('spool'), spoolRot=$('spoolRot'), thread=$('thread');
+  if(!lane||!spool||!thread) return;
+  var W=lane.clientWidth||800, H=lane.clientHeight||132, visible=true;
+  function size(){ W=lane.clientWidth||800; H=lane.clientHeight||132; }
+  if(window.ResizeObserver) new ResizeObserver(size).observe(lane); else window.addEventListener('resize',size);
+  if(window.IntersectionObserver) new IntersectionObserver(function(es){ visible=es[0].isIntersecting; }).observe(lane);
+
+  var START=40;
+  function draw(t){
+    var ground=H-16, speed=Math.max(140,W/6+60), L=W+160;
+    var spoolX=-50+((t*speed)%L);
+    var hop=Math.abs(Math.sin(t*5))*2.5;
+    spool.style.transform='translate('+(spoolX-22).toFixed(1)+'px,'+(ground-44-hop).toFixed(1)+'px)';
+    spoolRot.setAttribute('transform','rotate('+((spoolX/22)*57.3).toFixed(1)+' 22 22)');
+    /* fio: sai do centro do rolo e fica no chão atrás dele */
+    var hubY=ground-22-hop, x0=Math.min(START,spoolX-60);
+    var d='M'+spoolX.toFixed(1)+' '+hubY.toFixed(1)+' C'+(spoolX-18).toFixed(1)+' '+hubY.toFixed(1)+' '+(spoolX-32).toFixed(1)+' '+(ground-3)+' '+(spoolX-56).toFixed(1)+' '+(ground-3);
+    var x;
+    for(x=spoolX-70;x>x0;x-=12){
+      d+=' L'+x.toFixed(1)+' '+(ground-3+Math.sin(x*0.07+t*2.4)*2.2).toFixed(1);
+    }
+    thread.setAttribute('d',d);
+  }
+  if(reduce){
+    draw(1.4);
+    window.addEventListener('resize',function(){ draw(1.4); });
+    return;
+  }
+  var t0=performance.now();
+  function loop(now){
+    requestAnimationFrame(loop);
+    if(!visible||document.hidden) return;
+    draw((now-t0)/1000);
+  }
+  requestAnimationFrame(loop);
+}
+
+/* ---------- início ---------- */
+initCat();
+initFormatDialog();
+viewer=initViewer();
+initControls();
+initCalc();
+loadDefault();
+})();
+</script>
+
+</body></html>
